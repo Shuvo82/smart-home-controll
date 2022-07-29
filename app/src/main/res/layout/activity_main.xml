@@ -34,7 +34,7 @@
                 android:backgroundTint="@color/green"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="49dp"
+                android:layout_marginStart="28dp"
                 android:text="@string/on" />
 
             <Button
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:backgroundTint="@color/green"
-                android:layout_marginStart="49dp"
+                android:layout_marginStart="28dp"
                 android:text="@string/on" />
 
             <Button
@@ -141,6 +141,38 @@
                 android:text="@string/off" />
 
         </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B0FFFF"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/temp"
+            android:layout_height="wrap_content"
+            android:text="Temperature: 0.0 "
+            android:textSize="30dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/humidity"
+            android:layout_height="wrap_content"
+            android:text="Humidity: 0.0 "
+            android:textSize="30dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
+
 
 
     </LinearLayout>

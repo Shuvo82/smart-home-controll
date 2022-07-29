@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">smart home project</string>
+    <string name="app_name">Smart Home Project</string>
     <string name="on">On</string>
     <string name="off">OFF</string>
 </resources>

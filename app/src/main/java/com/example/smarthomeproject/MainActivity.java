@@ -3,12 +3,17 @@ package com.example.smarthomeproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         TextView light=findViewById(R.id.light);
         TextView fan=findViewById(R.id.fan);
         TextView alarm=findViewById(R.id.alarm);
+        TextView temp=findViewById(R.id.temp);
+        TextView humidity=findViewById(R.id.humidity);
 
         light_on.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -37,6 +44,46 @@ public class MainActivity extends AppCompatActivity {
                 // Code here executes on main thread after user presses button
             }
         });
+
+        DatabaseReference temp1 = FirebaseDatabase.getInstance().getReference().child("temp");
+        // Read from the database
+        temp1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                temp.setText("Temperature: "+value);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("temp", "Failed to read value.", error.toException());
+            }
+        });
+
+        DatabaseReference humidity1 = FirebaseDatabase.getInstance().getReference().child("humidity");
+        // Read from the database
+        humidity1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                humidity.setText("Humidity: "+value);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("temp", "Failed to read value.", error.toException());
+            }
+        });
+
+
 
         light_off.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
