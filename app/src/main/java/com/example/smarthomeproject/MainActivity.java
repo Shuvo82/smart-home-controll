@@ -15,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -38,12 +40,85 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("home light");
 
-                myRef.setValue(1);
-                light.setText("Light ON");
+                myRef.setValue("1");
+                //light.setText("Light ON");
 
                 // Code here executes on main thread after user presses button
             }
         });
+        DatabaseReference light1 = FirebaseDatabase.getInstance().getReference().child("home light");
+        // Read from the database
+        light1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                if(Objects.equals(value, "1")){
+                    light.setText("Light ON");
+                }
+                else if(Objects.equals(value, "0")){
+                    light.setText("Light Off");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("temp", "Failed to read value.", error.toException());
+            }
+        });
+
+        DatabaseReference fan1 = FirebaseDatabase.getInstance().getReference().child("fan");
+        // Read from the database
+        fan1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                if(Objects.equals(value, "1")){
+                    fan.setText("Exaust fan ON");
+                }
+                else if(Objects.equals(value, "0")){
+                    fan.setText("Exaust fan Off");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("temp", "Failed to read value.", error.toException());
+            }
+        });
+
+
+        DatabaseReference alarm1 = FirebaseDatabase.getInstance().getReference().child("buzzer");
+        // Read from the database
+        alarm1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                if(Objects.equals(value, "1")){
+                    alarm.setText("Gas leakage detected");
+                }
+                else if(Objects.equals(value, "0")){
+                    alarm.setText("Everything is normal");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("temp", "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+
 
         DatabaseReference temp1 = FirebaseDatabase.getInstance().getReference().child("temp");
         // Read from the database
@@ -55,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 String value = dataSnapshot.getValue(String.class);
                 temp.setText("Temperature: "+value);
             }
-
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -75,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                 humidity.setText("Humidity: "+value);
             }
 
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
@@ -83,18 +156,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         light_off.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("home light");
 
-                myRef.setValue(0);
-                light.setText("Light OFF");
+                myRef.setValue("0");
+                //light.setText("Light OFF");
 
-
-                // Code here executes on main thread after user presses button
             }
         });
 
@@ -104,10 +173,9 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("buzzer");
 
-                myRef.setValue(0);
-                alarm.setText("Alarm OFF");
+                myRef.setValue("0");
+                //alarm.setText("Alarm OFF");
 
-                // Code here executes on main thread after user presses button
             }
         });
         fan_on.setOnClickListener(new View.OnClickListener() {
@@ -115,10 +183,9 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("fan");
 
-                myRef.setValue(1);
-                fan.setText("Exaust fan ON");
+                myRef.setValue("1");
+                //fan.setText("Exaust fan ON");
 
-                // Code here executes on main thread after user presses button
             }
         });
         fan_off.setOnClickListener(new View.OnClickListener() {
@@ -126,17 +193,11 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("fan");
 
-                myRef.setValue(0);
-                fan.setText("Exaust fan OFF");
+                myRef.setValue("0");
+                //fan.setText("Exaust fan OFF");
 
                 // Code here executes on main thread after user presses button
             }
         });
-
-
-
     }
-
-
-
 }
